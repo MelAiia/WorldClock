@@ -1,7 +1,141 @@
+body {
+  margin: 0;
+  padding: 40px 20px;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #ff4fa3 0%, #ff7eb3 40%, #ffd95a 100%);
+  min-height: 100vh;
+  color: #444444;
+}
+
+.container {
+  max-width: 850px;
+  margin: 0 auto;
+  background: #fffdf7;
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(255, 79, 163, 0.2);
+}
+
 h1 {
   text-align: center;
+  font-size: 48px;
+  margin: 0 0 35px;
+  color: #ff4fa3;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.city-selector {
+  margin-bottom: 30px;
+}
+
+select {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #ffd95a;
+  border-radius: 12px;
+  font-size: 18px;
+  font-family: inherit;
+  background: white;
+  color: #444444;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+select:hover {
+  border-color: #ff4fa3;
+}
+
+select:focus {
+  outline: none;
+  border-color: #ff4fa3;
+  box-shadow: 0 0 10px rgba(255, 79, 163, 0.3);
+}
+
+.city {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 0;
+  border-bottom: 2px dashed #ffeaa7;
+}
+
+.city:last-child {
+  border-bottom: none;
+}
+
+.city-info h2 {
+  margin: 0;
+  font-size: 32px;
+  color: #ff4fa3;
+  font-weight: 600;
+}
+
+.date {
+  margin-top: 8px;
+  color: #888;
+  font-size: 15px;
+}
+
+.time {
+  font-size: 54px;
+  font-weight: 700;
+  color: #ffb800;
+  text-shadow: 2px 2px 10px rgba(255, 217, 90, 0.3);
+}
+
+.time small {
+  font-size: 18px;
+  vertical-align: middle;
+  color: #ff4fa3;
 }
 
 footer {
+  margin-top: 40px;
+  padding-top: 25px;
+  border-top: 2px solid #ffeaa7;
   text-align: center;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #666;
+}
+
+footer a {
+  color: #ff4fa3;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+footer a:hover {
+  color: #ffb800;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 20px 10px;
+  }
+
+  .container {
+    padding: 25px;
+  }
+
+  h1 {
+    font-size: 38px;
+  }
+
+  .city {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .city-info h2 {
+    font-size: 28px;
+  }
+
+  .time {
+    font-size: 40px;
+  }
 }
