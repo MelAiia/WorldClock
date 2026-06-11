@@ -1,37 +1,61 @@
+function updateCity(id, timezone, format = "HH:mm:ss") {
+  let city = document.querySelector(id);
+
+  if (!city) return;
+
+  let now = moment().tz(timezone);
+
+  city.querySelector(".date").innerHTML = now.format("MMMM Do YYYY");
+
+  city.querySelector(".time").innerHTML =
+    `${now.format("hh:mm:ss")} <small>${now.format("A")}</small>`;
+}
+
 function updateClocks() {
-  // Kyiv
-  let kyivElement = document.querySelector("#kyiv");
-  let kyivDate = kyivElement.querySelector(".date");
-  let kyivTime = kyivElement.querySelector(".time");
-  let kyivMoment = moment().tz("Europe/Kyiv");
-
-  kyivDate.innerHTML = kyivMoment.format("MMMM Do YYYY");
-  kyivTime.innerHTML = `${kyivMoment.format(
-    "HH:mm:ss",
-  )} <small>${kyivMoment.format("z")}</small>`;
-
-  // New York
-  let newYorkElement = document.querySelector("#new-york");
-  let newYorkDate = newYorkElement.querySelector(".date");
-  let newYorkTime = newYorkElement.querySelector(".time");
-  let newYorkMoment = moment().tz("America/New_York");
-
-  newYorkDate.innerHTML = newYorkMoment.format("MMMM Do YYYY");
-  newYorkTime.innerHTML = `${newYorkMoment.format(
-    "hh:mm:ss",
-  )} <small>${newYorkMoment.format("A")}</small>`;
-
-  // Tokyo
-  let tokyoElement = document.querySelector("#tokyo");
-  let tokyoDate = tokyoElement.querySelector(".date");
-  let tokyoTime = tokyoElement.querySelector(".time");
-  let tokyoMoment = moment().tz("Asia/Tokyo");
-
-  tokyoDate.innerHTML = tokyoMoment.format("MMMM Do YYYY");
-  tokyoTime.innerHTML = `${tokyoMoment.format(
-    "hh:mm:ss",
-  )} <small>${tokyoMoment.format("A")}</small>`;
+  updateCity("#kyiv", "Europe/Kyiv", "hh:mm:ss A");
+  updateCity("#new-york", "America/New_York", "hh:mm:ss A");
+  updateCity("#tokyo", "Asia/Tokyo", "hh:mm:ss A");
 }
 
 updateClocks();
 setInterval(updateClocks, 1000);
+
+function showSelectedCity(event) {
+  let timezone = event.target.value;
+
+  if (!timezone) {
+    return;
+  }
+
+  if (timezone === "current") {
+    timezone = moment.tz.guess();
+  }
+
+  let cityMoment = moment().tz(timezone);
+
+  let cityName = timezone.split("/")[1]?.replace("_", " ") || "My Location";
+
+  document.querySelector(".cities").innerHTML = `
+    <div class="city">
+      <div class="city-info">
+        <h2>${cityName}</h2>
+        <p class="date">
+          ${cityMoment.format("MMMM Do YYYY")}
+        </p>
+      </div>
+
+      <div class="time">
+        ${cityMoment.format("HH:mm:ss")}
+      </div>
+    </div>
+
+    <div class="back-link-container">
+      <a href="index.html" class="back-link">
+        ← Back to all cities
+      </a>
+    </div>
+  `;
+}
+
+let citySelect = document.querySelector("#city");
+citySelect.addEventListener("change", showSelectedCity);
